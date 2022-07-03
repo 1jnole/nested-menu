@@ -1,0 +1,21 @@
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+  <span *ngFor="let child of items">
+    <!-- Menu with child nodes -->
+    <span *ngIf="child?.children && child.children.length > 0">
+      <button
+        mat-menu-item
+        color="primary"
+        [matMenuTriggerFor]="menu.childMenu"
+      >
+        <span>{{ child.name }}</span>
+      </button>
+      <app-nested-menu #menu [items]="child.children"></app-nested-menu>
+    </span>
+    <!-- Menu without child nodes -->
+    <span *ngIf="!child.children || child.children.length === 0">
+      <button mat-menu-item>
+        <span>{{ child.name }}</span>
+      </button>
+    </span>
+  </span>
+</mat-menu>
